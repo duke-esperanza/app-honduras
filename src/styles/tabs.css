@@ -1,0 +1,32 @@
+.tab_container{
+  border-radius: 2;
+  height: 82vh;
+  padding-top: 1vh;
+  padding-left: 5vh;
+}
+
+.tab{
+  background-color: #FFFFFF;
+  border-radius: 2;
+  height: 75vh;
+  width: 31vw;
+  float:left;
+  margin: 1vw;
+  overflow-y: scroll;
+}
+
+.patientList{
+  overflow-y: scroll;
+}
+
+.listSection{
+  background: white;
+}
+
+.title {
+  text-align: center;
+  background-color: #AAAFB2;
+  width: 31vw;
+  margin-top: 1vw;
+  margin-left: 1vw;
+}

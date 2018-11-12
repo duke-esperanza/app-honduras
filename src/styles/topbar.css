@@ -1,0 +1,11 @@
+.spacer{
+  width: 1%,
+}
+
+.root{
+  flex-grow: 1,
+}
+
+.spacer1{
+  width: 20%
+}

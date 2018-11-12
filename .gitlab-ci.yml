@@ -1,0 +1,35 @@
+image: node:8.11.4
+
+# stages:
+#     - test
+#     - deploy
+
+
+# job 2:
+#     stage: test
+#     script:
+#         - npm install
+#         - npm run build
+#         - npm test
+
+
+pages:
+  stage: deploy
+  script:
+    - npm install
+    - npm run build
+    - npm run devstart
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+# pages:
+#     stage: test
+#     script:
+#     - npm install
+#     - npm run build
+#     - npm test
+#     artifacts:
+#         paths:
+#         - public
