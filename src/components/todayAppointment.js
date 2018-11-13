@@ -43,16 +43,16 @@ class TodayAppointment extends Component{
               <Avatar>
                 <PersonIcon />
               </Avatar>
-              <ListItemText className='listitem' primary={this.state.first + ' ' + this.state.last} secondary={this.state.time}/>
+              <ListItemText className='listitem' primary={<Typography variant='h5'>{this.state.first} {this.state.last}</Typography>} secondary={<Typography variant='h6' gutterBottom>{this.state.time}</Typography>}/>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <div className='information'>
               <ScheduleIcon />
-              <Typography variant='h6'> {this.state.time} </Typography>
+              <Typography variant='h6' className='iconText' > {this.state.time} </Typography>
             </div>
             <div className='information'>
               <PhoneIcon />
-              <Typography variant='h6'> {this.state.phone} </Typography>
+              <Typography variant='h6' className='iconText' > {this.state.phone} </Typography>
             </div>
           </ExpansionPanelDetails>
           <ExpansionPanelActions>

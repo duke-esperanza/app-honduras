@@ -7,6 +7,14 @@
   margin-right:auto;
 }
 
+.iconText{
+  display: inline-block;
+}
+
+.patientInfo{
+  font-size: 100;
+}
+
 .leftIcon{
   margin-left: 10px;
   margin-right: 2px;

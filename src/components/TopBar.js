@@ -16,17 +16,17 @@ function TopBar(props) {
     <div className='root'>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h2" color="inherit" >
+          <Typography variant="h3" color="inherit" >
             Clinica Esperanza
           </Typography>
           <div className='spacer1'></div>
-          <NavLink exact to='/' style={{ textDecoration: 'none', color:'white' }} activeStyle={{color:'limegreen'}}>
-            <h3>Schedule</h3>
+          <NavLink exact to='/' style={{ textDecoration: 'none', color:'white', fontSize:'2em', borderRight:'2px solid gray',paddingRight:'.5em'}} activeStyle={{color:'limegreen'}}>
+            Schedule
           </NavLink>
-          <div className='spacer'></div>
-          <NavLink to = '/appointments' style={{ textDecoration: 'none', color:'white' }} activeStyle={{color:'limegreen'}}>
-            <h3>Appointments</h3>
-          </NavLink>          
+          <div style={{width:'1em'}}></div>
+          <NavLink to = '/appointments' style={{ textDecoration: 'none', color:'white', fontSize:'2em' }} activeStyle={{color:'limegreen'}}>
+            Appointments
+          </NavLink>       
         </Toolbar>
       </AppBar>
     </div>

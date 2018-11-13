@@ -68,10 +68,10 @@ class FutureTab extends Component{
             <List subheader={<li />}>
               {dateList.map(date => (
                 <li key={date} className='listSection'>
-                  <ListSubheader>{date}</ListSubheader>
+                  <ListSubheader><Typography variant='h6'>{date}</Typography></ListSubheader>
                   {dict[date].map(appt =>(
                     <ListItem key={appt.first_name}>
-                      <ListItemText primary={appt.first_name} />
+                      <ListItemText primary=<Typography variant='h5'>{appt.first_name}</Typography> />
                     </ListItem>
                   ))}
                 </li>

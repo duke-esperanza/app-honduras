@@ -73,10 +73,10 @@ class MissedTab extends Component{
           <List subheader={<li />}>
             {nameList.map(name => (
               <li key={name} className='listSection'>
-                <ListSubheader>{name}</ListSubheader>
+                <ListSubheader><Typography variant='h6'>{name}</Typography></ListSubheader>
                 {dict[name].map(appt => (
                   <ListItem key={appt.date}>
-                    <ListItemText primary={appt.date} />
+                    <ListItemText primary=<Typography variant='h5'>Date: {appt.date}</Typography> />
                   </ListItem>
                 ))}
               </li>

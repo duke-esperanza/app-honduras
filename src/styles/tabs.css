@@ -13,6 +13,7 @@
   float:left;
   margin: 1vw;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .patientList{
@@ -21,7 +22,10 @@
 
 .listSection{
   background: white;
+  margin-top: 20px;
+  margin-bottom: 15px;
 }
+
 
 .title {
   text-align: center;
@@ -29,4 +33,13 @@
   width: 31vw;
   margin-top: 1vw;
   margin-left: 1vw;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #AAAFB2;
 }
