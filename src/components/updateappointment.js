@@ -10,8 +10,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-const appfact = factory.getInstance();
-const Airtable = require('airtable');
 var APPOINTMENTS = [];
 
 
@@ -22,6 +20,7 @@ class Update extends Component{
         open:false,
         appointment:[],
         status:'',
+        ready: false,
     };
 
     findStatus(){
@@ -45,28 +44,49 @@ class Update extends Component{
     }
 
     componentWillMount(){
-        var ls = appfact.records;
-        console.log(ls)
-        var d = new Date();
-        var upcomingapps = ls.filter((el) => {
-            let date = el.fields.date.split('-');
-            let comp = date.map(x => parseInt(x));
-            if (comp[0] >= d.getFullYear() ){
-                if (comp[0] == d.getFullYear() & comp[1] < d.getMonth()){
-                    return false;
-                }
-                if (comp[1] == d.getMonth() & comp[2] < d.getDate()){
-                    return false;
-                }
-                return true;
-            }
-        });
-        APPOINTMENTS = upcomingapps;
-        this.setState({uapps:APPOINTMENTS,appointment:APPOINTMENTS[0]}, () => {
-            console.log(this.state.uapps[1])
-        });
-        console.log(APPOINTMENTS[1])
+        var ls = [];
         
+
+        var Airtable = require('airtable');
+        var base = new Airtable({apiKey: "keyYFWbcwIfgdSCb4"}).base('appuPqYIxCcvESuzm');
+
+        base('Appointments').select({
+        //add conditions here
+        }).eachPage(function page(records, fetchNextPage) {
+            // This function (`page`) will get called for each page of records.
+            records.forEach(function(record) {
+                ls.push(record);
+            });
+
+            // To fetch the next page of records, call `fetchNextPage`.
+            // If there are more records, `page` will get called again.
+            // If there are no more records, `done` will get called.
+            fetchNextPage();
+
+        }, function done(err) {
+            // ReactDOM.render(<Page ref={(Search) => {window.Search.setAppointments(data)}} />, document.getElementById("root"));
+            if (err) { console.error(err); return; }
+            console.log(ls)
+            var d = new Date();
+            var upcomingapps = ls.filter((el) => {
+                let date = el.fields.date.split('-');
+                let comp = date.map(x => parseInt(x));
+                if (comp[0] >= d.getFullYear() ){
+                    if (comp[0] == d.getFullYear() & comp[1] < d.getMonth()){
+                        return false;
+                    }
+                    if (comp[1] == d.getMonth() & comp[2] < d.getDate()){
+                        return false;
+                    }
+                    return true;
+                }
+            });
+            APPOINTMENTS = upcomingapps;
+            this.setState({uapps:APPOINTMENTS,appointment:APPOINTMENTS[0]}, () => {
+                console.log(this.state.uapps[1])
+            });
+            console.log(APPOINTMENTS[1])
+        }.bind(this));        
     };
 
     searchHandler (event) {
@@ -168,12 +188,13 @@ class Update extends Component{
             <>
             <input 
             type='text' 
-            style={{width:'100%',height:30,borderRadius:3,paddingLeft:20,borderWidth:1,borderStyle:"solid",fontSize:"1.5em",outline:'none'}} 
+            style={{width:'75%',height:30,borderRadius:3,paddingLeft:20,borderWidth:1,borderStyle:"solid",fontSize:"1.5em",outline:'none',margin:'2em',marginBottom:0}} 
             onChange={this.searchHandler.bind(this)}
             placeholder="Search for an appointment">
             </input>
             {content}
-            <Dialog
+
+            {this.state.ready ? <Dialog
                 open={this.state.open}
                 onClose={this.handleClose}
                 aria-labelledby="alert-dialog-title"
@@ -202,7 +223,7 @@ class Update extends Component{
                     <Button onClick={this.updateAppointment.bind(this)}>Update</Button>
                     <Button onClick={this.deleteAppointment.bind(this)}>Delete</Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog> : ''}
             </>
         );
     }

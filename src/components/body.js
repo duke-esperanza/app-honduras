@@ -1,6 +1,8 @@
 import React from 'react';
 import {Switch,Route} from 'react-router-dom';
 import container from './container';
+import NewAppointments from './newappointment';
+import Update from './updateappointment';
 import appointments from './appointments';
 
 
@@ -8,8 +10,8 @@ const Body = () => (
     <main>
       <Switch>
         <Route exact path='/' component={container}/>
-        <Route path='/appointments' component={appointments}/>
-        {/* <Route path='/schedule' component={Schedule}/> */}
+        <Route path='/update' component={Update}/>
+        <Route path='/create' component={NewAppointments}/>
       </Switch>
     </main>
   )

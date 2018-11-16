@@ -24,8 +24,12 @@ function TopBar(props) {
             Schedule
           </NavLink>
           <div style={{width:'1em'}}></div>
-          <NavLink to = '/appointments' style={{ textDecoration: 'none', color:'white', fontSize:'2em' }} activeStyle={{color:'limegreen'}}>
-            Appointments
+          <NavLink to = '/create' style={{ textDecoration: 'none', color:'white', fontSize:'2em', borderRight:'2px solid gray',paddingRight:'.5em'}} activeStyle={{color:'limegreen'}}>
+            Create
+          </NavLink> 
+          <div style={{width:'1em'}}></div>
+          <NavLink to = '/update' style={{ textDecoration: 'none', color:'white', fontSize:'2em' }} activeStyle={{color:'limegreen'}}>
+            Update
           </NavLink>       
         </Toolbar>
       </AppBar>
