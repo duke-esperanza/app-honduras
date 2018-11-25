@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import factory from '../backend/appointmentFactory';
+import NewAppointments from './newappointment';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,11 +8,29 @@ import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 var APPOINTMENTS = [];
 
-
+const stati = [
+    {
+        value:1,
+        label:'New Appointment'
+    },
+    {
+        value:2,
+        label:'Sent 2 Week Notification'
+    },
+    {
+        vale:3,
+        label:'Sent 2 Day Notification'
+    },
+    {
+        value:4,
+        label:'Made Appointment'
+    },
+    {value:5,
+    label:'Missed Appointment'}
+]
 
 class Update extends Component{
     state= {
@@ -23,25 +41,7 @@ class Update extends Component{
         ready: false,
     };
 
-    findStatus(){
-        var status = this.state.appointment.status;
-        console.log(status);
-        switch(status){
-            case '1':
-                return 'New Appointment'
-            case '2':
-                return 'Sent 2 week notification!'
-            case '3':
-                return 'Sent 2 day notification!'
-            case '4':
-                return 'Made appointment!'
-            case '5': 
-                return 'Missed appointment!'
-            default:
-                console.log(status);
-                break
-        }
-    }
+    
 
     componentWillMount(){
         var ls = [];
@@ -64,7 +64,6 @@ class Update extends Component{
             fetchNextPage();
 
         }, function done(err) {
-            // ReactDOM.render(<Page ref={(Search) => {window.Search.setAppointments(data)}} />, document.getElementById("root"));
             if (err) { console.error(err); return; }
             console.log(ls)
             var d = new Date();
@@ -93,7 +92,7 @@ class Update extends Component{
         let searcjQery = event.target.value.toLowerCase().replace( /\s/g, '')
         var newapps = APPOINTMENTS.filter((el) => {
             let searchValue = el.fields.first_name.toLowerCase() + el.fields.last_name.toLowerCase();
-            return searchValue.indexOf(searcjQery) !== -1;
+            return searchValue.replace( /\s/g, '').indexOf(searcjQery) !== -1;
         });
         console.log(newapps)
         this.setState({
@@ -105,26 +104,8 @@ class Update extends Component{
 
     appointmentClick(el){
         this.setState({appointment:el})
-        var status = this.state.appointment.fields.status;
-        switch(status){
-            case 1:
-                this.setState({status:'New Appointment'}); 
-                break;
-            case 2:
-                this.setState({status:'Sent 2 week notification!'}); 
-                break; 
-            case 3:
-                this.setState({status:'Sent 2 day notification!'}); 
-                break; 
-            case 4:
-                this.setState({status:'Made Appointment!'}); 
-                break; 
-            case 5: 
-                this.setState({status:'Missed Appointment!'}); 
-                break; 
-            default:
-                break
-        }
+        var stat = this.state.appointment.fields.status;
+        this.setState({status:stat})
         this.setState({open:true});
         
     };
@@ -147,7 +128,7 @@ class Update extends Component{
         var name = this.state.appointment.fields.first_name + ' ' + this.state.appointment.fields.last_name
         base('appointments').replace(this.state.appointment.id, {
         "date": document.getElementById('date').value.toString(),
-        "status": 1,
+        "status": document.getElementById('status'),
         "first_name": this.state.appointment.fields.first_name.toString(),
         "last_name": this.state.appointment.fields.last_name.toString(),
         "appointment_time": document.getElementById('appointment_time').value.toString(),
@@ -160,8 +141,19 @@ class Update extends Component{
     };
 
     handleClose = () => {
-        this.setState({ open: false });
+        this.setState({ open: false ,ready:false});
     };
+
+    makeNewAppointment = () => {
+        console.log('making appointment')
+        this.setState({ready:true})
+    }
+    changeStatus = () => event =>{
+        console.log(event.target.value)
+        this.setState(
+            {status:event.target.value}
+        )
+    }
 
     render(){
         const content = this.state.uapps.slice(0,20).map((el) => 
@@ -186,20 +178,36 @@ class Update extends Component{
         
         return(
             <>
-            <input 
-            type='text' 
-            style={{width:'75%',height:30,borderRadius:3,paddingLeft:20,borderWidth:1,borderStyle:"solid",fontSize:"1.5em",outline:'none',margin:'2em',marginBottom:0}} 
-            onChange={this.searchHandler.bind(this)}
-            placeholder="Search for an appointment">
-            </input>
+            <div style={{display:'inline-block',width:'100%'}}>
+                <input 
+                type='text' 
+                style={{width:'75%',height:30,borderRadius:3,paddingLeft:20,borderWidth:1,borderStyle:"solid",fontSize:"1.5em",outline:'none',margin:'2em',marginBottom:0}} 
+                onChange={this.searchHandler.bind(this)}
+                placeholder="Search for an appointment">
+                </input>
+                <Button onClick={this.makeNewAppointment.bind(this)} variant='contained' color='primary'>New Appointment</Button>
+            </div>
+            
             {content}
 
             {this.state.ready ? <Dialog
+            open={this.state.ready}
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            maxWidth={'md'}>
+            <DialogContent>
+                <NewAppointments/>
+            </DialogContent>
+            </Dialog> :''
+
+            }
+
+            {this.state.open ? <Dialog
                 open={this.state.open}
                 onClose={this.handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
-                fullWidth={true}
                 maxWidth={'md'}
             >
                 <DialogContent>
@@ -207,16 +215,31 @@ class Update extends Component{
                         {this.state.appointment.fields.first_name} {this.state.appointment.fields.last_name}
                         </Typography>
                         <Typography variant='h5'>
-                            Date : <input type='text' id='date' defaultValue={this.state.appointment.fields.date} style={{borderBottom:'1px solid black', borderTop:'none', borderLeft:'none', borderRight:'none', outline:'none'}}></input>
+                            Date : <input type='date' id='date' defaultValue={this.state.appointment.fields.date} style={{borderBottom:'1px solid black', borderTop:'none', borderLeft:'none', borderRight:'none', outline:'none'}}></input>
                         </Typography>
                         <Typography variant='h5'>
-                            Appointment Time : <input type='text' id='appointment_time' defaultValue={this.state.appointment.fields.appointment_time} style={{borderBottom:'1px solid black', borderTop:'none', borderLeft:'none', borderRight:'none', outline:'none'}}></input>
+                            Appointment Time : <input type='time' step={1800} id='appointment_time' defaultValue={this.state.appointment.fields.appointment_time} style={{borderBottom:'1px solid black', borderTop:'none', borderLeft:'none', borderRight:'none', outline:'none'}}></input>
                         </Typography> 
                         <Typography variant='h5'>
                             Phone Number : <input type='text' id='phone' defaultValue={this.state.appointment.fields.phone} style={{borderBottom:'1px solid black', borderTop:'none', borderLeft:'none', borderRight:'none', outline:'none'}}></input>
                         </Typography>  
-                        <Typography variant='h5'>
-                            Status : <input type='text' id='status' defaultValue={this.state.status} style={{borderBottom:'1px solid black', borderTop:'none', borderLeft:'none', borderRight:'none', outline:'none'}}></input>
+                        <Typography variant='h5' style={{display:'inline-block'}}>
+                            Status : 
+                            <TextField
+                                id="status"
+                                select
+                                value={this.state.status}
+                                onChange={this.changeStatus()}
+                                margin="none"
+                                fullwidth={true}
+                                >
+                                {console.log(this.state.status)}
+                                {stati.map(option => (
+                                    <option key={option.value} value={option.value}>
+                                    {option.label}
+                                    </option>
+                                ))}
+                            </TextField>
                         </Typography>
                 </DialogContent>
                 <DialogActions style={{float:'left'}}>

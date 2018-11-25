@@ -11,7 +11,6 @@ const Body = () => (
       <Switch>
         <Route exact path='/' component={container}/>
         <Route path='/update' component={Update}/>
-        <Route path='/create' component={NewAppointments}/>
       </Switch>
     </main>
   )

@@ -1,13 +1,19 @@
 import React, { Component } from "react";
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import Input from '@material-ui/core/Input';
 import factory from '../backend/appointmentFactory';
 import { Button, Typography } from "@material-ui/core";
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
 const appfact = factory.getInstance();
 const Airtable = require('airtable');
 
-
+const styles = {
+    resize:{
+        fontSize:22
+    },
+    resize2:{
+        width:"20em"
+    }
+}
 
 class NewAppointments extends Component{
     state = {
@@ -15,7 +21,12 @@ class NewAppointments extends Component{
         date:'',
         appointment_time:'',
         phone:'',
+        nameerror:false,
+        dateerror:false,
+        timeerror:false,
+        phoneerror:false,
     }
+    
 
     onClick = () => {
     var base = new Airtable({apiKey: 'keyYFWbcwIfgdSCb4'}).base('appuPqYIxCcvESuzm');
@@ -41,72 +52,92 @@ class NewAppointments extends Component{
         this.setState({
           [name]: event.target.value,
         });
+        console.log(event.target.value)
       };
+
+    
 
 
     render(){
+        const {classes} = this.props;
         return(
-            <>
-            <FormControl
-                fullWidth={true}
-                variant='filled'
-                margin = 'dense'
-                required = {true}
-            >
-                <FormLabel>
-                    Name:
-                </FormLabel>
-                <Input placeholder='Jane Doe' onChange={this.handleChange('name')}>
-                </Input>
+            <div style={{width:"20em"}}>
+                <Typography variant='h6' style={{padding:10}}>Create an Appointment</Typography>
+            
+                <TextField
+                    id="name"
+                    type="text"
+                    label="Name:"
+                    defaultValue="Jane Doe"
+                    error = {this.state.nameerror}
+                    fullWidth="true"
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.resize,
+                        },
+                    }}
+                    onChange={this.handleChange('name')}
+                />  
+            
+                <TextField
+                    id="date"
+                    type="date"
+                    label="Date:"
+                    defaultValue="2018-05-24"
+                    fullWidth="true"
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.resize,
+                        },
+                    }}
+                    onChange={this.handleChange('date')}
+                />  
+            
+                <TextField
+                    id="time"
+                    type="time"
+                    defaultValue="07:30"
+                    label="Appointment Time: "
+                    fullWidth="true"
+                    inputProps={{
+                        step: 1800, // 30 min
+                    }}
+        
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.resize,
+                        },
+                    }}
+                    
+                    onChange={this.handleChange('appointment_time')}
+                />  
+            
+
+            
+                <TextField
+                    id="date"
+                    type="text"
+                    label="Phone:"
+                    defaultValue="123-456-7890"
+                    fullWidth="true"
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.resize,
+                        },
+                    }}
+                    onChange={this.handleChange('phone')}
+                />  
                 
-            </FormControl>
-            <FormControl
-                fullWidth={true}
-                variant='filled'
-                margin = 'dense'
-                required = {true}
-            >
-                <FormLabel>
-                   Date:
-                </FormLabel>
-                <Input placeholder='yyyy-dd-mm' onChange={this.handleChange('date')}>
-                </Input>
                 
-            </FormControl>
-            <FormControl
-                fullWidth={true}
-                variant='filled'
-                margin = 'dense'
-                required = {true}
-            >
-                <FormLabel>
-                    Appointment Time:
-                </FormLabel>
-                <Input placeholder='06:00' onChange={this.handleChange('appointment_time')} >
-                </Input>
-                
-            </FormControl>
-            <FormControl
-                fullWidth={true}
-                variant='filled'
-                margin = 'dense'
-                required = {true}
-            >
-                <FormLabel>
-                    Phone Number:
-                </FormLabel>
-                <Input placeholder='123-456-7890' onChange={this.handleChange('phone') }>
-                </Input>
-                
-            </FormControl>
-            <Button onClick={this.onClick.bind(this)}>
-                <Typography variant="h5">
-                    Submit
+            
+            <Button onClick={this.onClick.bind(this)} style={{margin:5,float:'right'}}>
+                <Typography variant='h8'>
+                    Create
                 </Typography>
             </Button>
-            </>
+            </div>
         );
     }
 }
 
-export default NewAppointments;
+export default withStyles(styles)(NewAppointments);

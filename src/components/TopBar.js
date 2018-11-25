@@ -22,10 +22,6 @@ function TopBar(props) {
           <div className='spacer1'></div>
           <NavLink exact to='/' style={{ textDecoration: 'none', color:'white', fontSize:'2em', borderRight:'2px solid gray',paddingRight:'.5em'}} activeStyle={{color:'limegreen'}}>
             Schedule
-          </NavLink>
-          <div style={{width:'1em'}}></div>
-          <NavLink to = '/create' style={{ textDecoration: 'none', color:'white', fontSize:'2em', borderRight:'2px solid gray',paddingRight:'.5em'}} activeStyle={{color:'limegreen'}}>
-            Create
           </NavLink> 
           <div style={{width:'1em'}}></div>
           <NavLink to = '/update' style={{ textDecoration: 'none', color:'white', fontSize:'2em' }} activeStyle={{color:'limegreen'}}>
