@@ -24,7 +24,8 @@ class TodayAppointment extends Component {
       first: this.props.first,
       last: this.props.last,
       time: this.props.time,
-      phone: this.props.phone
+      phone: this.props.phone,
+      id: this.props.id
     };
   }
 

@@ -27,7 +27,8 @@ class TodayTab extends Component {
       .eachPage(
         function page(records, fetchNextPage) {
           records.forEach(function(record) {
-            appointmentData[count] = record.fields;
+            console.log(record);
+            appointmentData[count] = [record.fields, record.id];
             count++;
           });
           fetchNextPage();
@@ -46,12 +47,13 @@ class TodayTab extends Component {
 
   render() {
     const content = this.state.appointments.map(someData => (
-      <div key={someData.ID}>
+      <div key={someData[1]}>
         <TodayAppointment
-          first={someData.first_name}
-          last={someData.last_name}
-          time={someData.appointment_time}
-          phone={someData.phone}
+          first={someData[0].first_name}
+          last={someData[0].last_name}
+          time={someData[0].appointment_time}
+          phone={someData[0].phone}
+          id={someData[1]}
         />
       </div>
     ));

@@ -59,7 +59,6 @@ class FutureTab extends Component {
   };
 
   render() {
-    console.log(this.state.appointments);
     var dateList = [];
     var dict = this.componentMap(this.state.appointments, dateList);
     return (
