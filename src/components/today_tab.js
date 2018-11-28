@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import style from "../styles/tabs.css";
-//import { Panel } from 'react-bootstrap';
 import TodayAppointment from "./todayAppointment";
 import { Paper, Typography } from "@material-ui/core";
 
