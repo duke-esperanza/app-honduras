@@ -20,7 +20,7 @@ pages:
     - npm install -g surge
     - npm run build
     - npm test
-    - surge build
+    - surge build --domain app-honduras.surge.sh
   artifacts:
     paths:
       - public
