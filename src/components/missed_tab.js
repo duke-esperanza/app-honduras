@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Columns from 'react-columns';
 import  style from '../styles/tabs.css';
 //import { Panel } from 'react-bootstrap';
 import Patient from './patient_list_item';
@@ -76,7 +75,7 @@ class MissedTab extends Component{
                 <ListSubheader><Typography variant='h6'>{name}</Typography></ListSubheader>
                 {dict[name].map(appt => (
                   <ListItem key={appt.date}>
-                    <ListItemText primary=<Typography variant='h5'>Date: {appt.date}</Typography> />
+                    <ListItemText primary={<Typography variant='h5'>Date: {appt.date}</Typography>} />
                   </ListItem>
                 ))}
               </li>
