@@ -71,14 +71,15 @@ class Update extends Component{
                 let date = el.fields.date.split('-');
                 let comp = date.map(x => parseInt(x));
                 if (comp[0] >= d.getFullYear() ){
-                    if (comp[0] == d.getFullYear() & comp[1] < d.getMonth()){
+                    if (comp[0] === d.getFullYear() & comp[1] < d.getMonth()){
                         return false;
                     }
-                    if (comp[1] == d.getMonth() & comp[2] < d.getDate()){
+                    if (comp[1] === d.getMonth() & comp[2] < d.getDate()){
                         return false;
                     }
                     return true;
                 }
+                return false;
             });
             APPOINTMENTS = upcomingapps;
             this.setState({uapps:APPOINTMENTS,appointment:APPOINTMENTS[0]}, () => {

@@ -1,9 +1,7 @@
 import React from 'react';
 import {Switch,Route} from 'react-router-dom';
 import container from './container';
-import NewAppointments from './newappointment';
 import Update from './updateappointment';
-import appointments from './appointments';
 
 
 const Body = () => (

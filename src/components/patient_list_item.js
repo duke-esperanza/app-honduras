@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Button, Collapse, Well, ButtonGroup, ButtonToolBar} from 'react-bootstrap';
-import { List, ListItem, ListItemText } from '@material-ui/core';
-import style from '../styles/patient.css';
+import {Button, Collapse, Well, ButtonGroup} from 'react-bootstrap';
+import '../styles/patient.css';
 
 class PatientListItem extends Component {
     constructor(props) {
@@ -18,7 +17,7 @@ class PatientListItem extends Component {
 
 	render(){
 		//currently this value is arbitrary, ideally shouldn't be
-		if(this.state.status != 5){
+		if(this.state.status !== 5){
 			return null;
 		}
 		return (

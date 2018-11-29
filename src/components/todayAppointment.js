@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import Collapse from '@material-ui/core/Collapse';
-import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -16,7 +13,7 @@ import ScheduleIcon from '@material-ui/icons/Schedule';
 import PhoneIcon from '@material-ui/icons/Phone';
 import CheckIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
-import styles from '../styles/todayappt.css';
+import '../styles/todayappt.css';
 
 class TodayAppointment extends Component{
   constructor(props){
@@ -36,7 +33,6 @@ class TodayAppointment extends Component{
   };
 
   render() {
-    const { classes } = this.props;
     return (
         <ExpansionPanel>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>

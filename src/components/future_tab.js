@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import Columns from 'react-columns';
-import  style from '../styles/tabs.css';
-import Patient from './patient_list_item';
-import { Paper, Typography, Grid } from '@material-ui/core'
+import  '../styles/tabs.css';
+import { Paper, Typography } from '@material-ui/core'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -71,7 +69,7 @@ class FutureTab extends Component{
                   <ListSubheader><Typography variant='h6'>{date}</Typography></ListSubheader>
                   {dict[date].map(appt =>(
                     <ListItem key={appt.first_name}>
-                      <ListItemText primary=<Typography variant='h5'>{appt.first_name}</Typography> />
+                      <ListItemText primary={<Typography variant='h5'>{appt.first_name}</Typography>} />
                     </ListItem>
                   ))}
                 </li>

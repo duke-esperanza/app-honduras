@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import  style from '../styles/tabs.css';
-//import { Panel } from 'react-bootstrap';
-import Patient from './patient_list_item';
-import { Paper, Grid } from '@material-ui/core'
+import '../styles/tabs.css';
+import { Paper} from '@material-ui/core'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 class MissedTab extends Component{
 

@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import factory from '../backend/appointmentFactory';
 import { Button, Typography } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-const appfact = factory.getInstance();
 const Airtable = require('airtable');
 
 const styles = {
@@ -43,7 +41,6 @@ class NewAppointments extends Component{
         else{alert('You have submitted an appointment!')}
         document.location.reload();
         console.log(record);
-        appfact.addAppointment(record.fields);
     });
     
     }

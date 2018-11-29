@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import Columns from 'react-columns';
-import  style from '../styles/tabs.css';
-//import { Panel } from 'react-bootstrap';
-import Patient from './patient_list_item';
+import '../styles/tabs.css';
 import TodayAppointment from './todayAppointment';
-import { Paper, Typography, Grid, List, ListItem, ListItemText } from '@material-ui/core';
-import factory from '../backend/appointmentFactory';
+import { Paper, Typography} from '@material-ui/core';
 
 
 
