@@ -17,7 +17,7 @@ pages:
   stage: deploy
   script:
     - npm install
-    - npm install surge
+    - npm install -g surge
     - npm run build
     - npm test
     - surge build
