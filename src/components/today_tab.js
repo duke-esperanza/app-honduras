@@ -9,6 +9,7 @@ class TodayTab extends Component{
   constructor(props){
     super(props);
 
+
     this.state = {
       title: props.title,
       appointments: [],
@@ -17,7 +18,10 @@ class TodayTab extends Component{
 
   componentWillMount() {
     var Airtable = require('airtable');
-    var base = new Airtable({apiKey: "keybQixDhiGoMKCTi"}).base('appuPqYIxCcvESuzm');
+    console.log(process.env.REACT_APP_AIRTABLE_KEY);
+    console.log(process.env);
+    
+    var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTBALE_BASE);
     var appointmentData = [];
     var count = 0;
     base('Appointments').select({
