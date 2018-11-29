@@ -19,9 +19,9 @@ class TodayTab extends Component{
   componentWillMount() {
     var Airtable = require('airtable');
     console.log(process.env.REACT_APP_AIRTABLE_KEY);
-    console.log(process.env.REACT_APP_AIRTBALE_BASE);
+    console.log(process.env.REACT_APP_AIRTABLE_BASE);
     
-    var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTBALE_BASE);
+    var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
     var appointmentData = [];
     var count = 0;
     base('Appointments').select({
