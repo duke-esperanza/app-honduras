@@ -17,8 +17,10 @@ pages:
   stage: deploy
   script:
     - npm install
+    - npm install surge
     - npm run build
-    - npm run devstart
+    - npm test
+    - surge build
   artifacts:
     paths:
       - public
