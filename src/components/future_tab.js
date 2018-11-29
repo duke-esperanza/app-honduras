@@ -19,7 +19,7 @@ class FutureTab extends Component{
 
   componentWillMount() {
     var Airtable = require('airtable');
-    var base = new Airtable({apiKey: "keybQixDhiGoMKCTi"}).base('appuPqYIxCcvESuzm');
+    var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
     var appointmentData = [];
     base('Appointments').select({
       filterByFormula: 'AND(OR(status = 1, status = 2), IS_AFTER(date, TODAY()))'

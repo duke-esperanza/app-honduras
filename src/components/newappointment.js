@@ -28,7 +28,7 @@ class NewAppointments extends Component{
     
 
     onClick = () => {
-    var base = new Airtable({apiKey: 'keyYFWbcwIfgdSCb4'}).base('appuPqYIxCcvESuzm');
+    var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
     base('appointments').create({
         "date": this.state.date,
         "status": 1,

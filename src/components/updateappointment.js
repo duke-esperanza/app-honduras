@@ -48,7 +48,7 @@ class Update extends Component{
         
 
         var Airtable = require('airtable');
-        var base = new Airtable({apiKey: "keyYFWbcwIfgdSCb4"}).base('appuPqYIxCcvESuzm');
+        var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
 
         base('Appointments').select({
         //add conditions here
@@ -114,7 +114,7 @@ class Update extends Component{
     deleteAppointment(){
         console.log('delete clicked')
         var Airtable = require('airtable');
-        var base = new Airtable({apiKey: 'keyYFWbcwIfgdSCb4'}).base('appuPqYIxCcvESuzm');
+        var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
         var name = this.state.appointment.fields.first_name + ' ' + this.state.appointment.fields.last_name
 
         base('appointments').destroy(this.state.appointment.id, function(err, deletedRecord) {
@@ -125,7 +125,7 @@ class Update extends Component{
     };
     updateAppointment(){
         var Airtable = require('airtable');
-        var base = new Airtable({apiKey: 'keyYFWbcwIfgdSCb4'}).base('appuPqYIxCcvESuzm');
+        var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
         var name = this.state.appointment.fields.first_name + ' ' + this.state.appointment.fields.last_name
         base('appointments').replace(this.state.appointment.id, {
         "date": document.getElementById('date').value.toString(),

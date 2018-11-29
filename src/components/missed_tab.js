@@ -20,7 +20,7 @@ class MissedTab extends Component{
 
   componentWillMount() {
     var Airtable = require('airtable');
-    var base = new Airtable({apiKey: "keybQixDhiGoMKCTi"}).base('appuPqYIxCcvESuzm');
+    var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
     var appointmentData = [];
     base('Appointments').select({
       filterByFormula: 'AND(status = 4, IS_BEFORE(date, TODAY()))',
