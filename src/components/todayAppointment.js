@@ -25,7 +25,8 @@ class TodayAppointment extends Component {
       last: this.props.last,
       time: this.props.time,
       phone: this.props.phone,
-      id: this.props.id
+      id: this.props.id,
+      valid: 0
     };
   }
 
@@ -33,7 +34,60 @@ class TodayAppointment extends Component {
     this.setState(state => ({ open: !state.open }));
   };
 
+  appointmentUpdate = (value, first, last) => {
+    this.updateAirtable(value);
+    //call function here
+    this.setState = {
+      valid: 1
+    };
+  };
+
+  updateAirtable = value => {
+    var Airtable = require("airtable");
+    var base = new Airtable({ apiKey: "keybQixDhiGoMKCTi" }).base(
+      "appuPqYIxCcvESuzm"
+    );
+
+    base("appointments").update(
+      this.state.id,
+      {
+        status: { value }
+      },
+      function(err, record) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+      }
+    );
+  };
+
+  patientFail = () => {
+    var Airtable = require("airtable");
+    var base = new Airtable({ apiKey: "keybQixDhiGoMKCTi" }).base(
+      "appuPqYIxCcvESuzm"
+    );
+
+    base("appointments").update(
+      this.state.id,
+      {
+        status: "4"
+      },
+      function(err, record) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log(record.get("date"));
+      }
+    );
+  };
+
   render() {
+    if (this.state.valid !== 0) {
+      return null;
+    }
+
     return (
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -71,11 +125,27 @@ class TodayAppointment extends Component {
           </div>
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.appointmentUpdate(
+              3,
+              this.state.first,
+              this.state.last
+            )}
+          >
             Came
             <CheckIcon className="leftIcon" />
           </Button>
-          <Button variant="contained" color="secondary">
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={this.appointmentUpdate(
+              4,
+              this.state.first,
+              this.state.last
+            )}
+          >
             Missed
             <CancelIcon className="leftIcon" />
           </Button>
