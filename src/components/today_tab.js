@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import style from "../styles/tabs.css";
+import "../styles/tabs.css";
 import TodayAppointment from "./todayAppointment";
 import { Paper, Typography } from "@material-ui/core";
 import Snackbar from '@material-ui/core/Snackbar';
@@ -10,7 +10,6 @@ import CloseIcon from '@material-ui/icons/Close';
 class TodayTab extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       title: props.title,
       appointments: [],
@@ -22,9 +21,8 @@ class TodayTab extends Component {
 
   componentWillMount() {
     var Airtable = require("airtable");
-    var base = new Airtable({ apiKey: "keybQixDhiGoMKCTi" }).base(
-      "appuPqYIxCcvESuzm"
-    );
+    var Airtable = require('airtable');
+    var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
     var appointmentData = [];
     var count = 0;
     base("Appointments")

@@ -13,7 +13,7 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import PhoneIcon from "@material-ui/icons/Phone";
 import CheckIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
-import styles from "../styles/todayappt.css";
+import "../styles/todayappt.css";
 
 class TodayAppointment extends Component {
   constructor(props) {

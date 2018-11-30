@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import style from "../styles/tabs.css";
+import "../styles/tabs.css";
 import { Paper } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -18,10 +18,8 @@ class MissedTab extends Component {
   }
 
   componentWillMount() {
-    var Airtable = require("airtable");
-    var base = new Airtable({ apiKey: "keybQixDhiGoMKCTi" }).base(
-      "appuPqYIxCcvESuzm"
-    );
+    var Airtable = require('airtable');
+    var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
     var appointmentData = [];
     base("Appointments")
       .select({

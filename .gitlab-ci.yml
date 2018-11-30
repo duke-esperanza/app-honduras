@@ -17,8 +17,10 @@ pages:
   stage: deploy
   script:
     - npm install
+    - npm install -g surge
     - npm run build
-    - npm run devstart
+    - npm test
+    - surge build --domain app-honduras.surge.sh
   artifacts:
     paths:
       - public
