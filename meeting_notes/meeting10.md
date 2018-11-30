@@ -2,25 +2,25 @@
 
 ## Meeting Information
 
-__Meeting Date/Time:__ meeting_date, meeting_time
-__Meeting Purpose:__ meeting_purpose
-__Meeting Location:__ meeting_location
-__Note Taker:__ note_taker
+__Meeting Date/Time:__ 11/30, 10:30am <br> 
+__Meeting Purpose:__ Client Call and Sprint 6 <br>
+__Meeting Location:__ Edge Project Room 2 <br>
+__Note Taker:__ Dorian
 
 
 ## Attendees
 
 People who attended:
- - Person A
- - Person B
- - Person C
+ - Dorian
+ - Tevin
+ - Gabe
 
 ## Agenda Items
 
 | Item | Description |
 |:----|:----|
-|Agenda Item 1 | - <br> - |
-|Agenda Item 2 | - <br> - |
+|Peggy | - Honduras Phone Numbers <br> - MIT License <br> - Tech Transfer|
+|Sprint 6 | - Issues <br> - |
 
 
 ## Discussion Items
