@@ -17,7 +17,8 @@ const styles = {
 
 class NewAppointments extends Component{
     state = {
-        name: '',
+        firstname: '',
+        lastname:'',
         date:'',
         appointment_time:'',
         phone:'',
@@ -30,12 +31,11 @@ class NewAppointments extends Component{
 
     onClick = () => {
     var base = new Airtable({apiKey: 'keyYFWbcwIfgdSCb4'}).base('appuPqYIxCcvESuzm');
-    var sepname = this.state.name.split(' ');
     base('appointments').create({
         "date": this.state.date,
         "status": 1,
-        "first_name": sepname[0],
-        "last_name": sepname[1],
+        "first_name": this.state.firstname,
+        "last_name": this.state.lastname,
         "appointment_time": this.state.appointment_time,
         "phone": this.state.phone
     }, function(err, record) {
@@ -65,19 +65,36 @@ class NewAppointments extends Component{
                 <Typography variant='h6' style={{padding:10}}>Create an Appointment</Typography>
             
                 <TextField
-                    id="name"
+                    id="firstname"
                     type="text"
-                    label="Name:"
-                    defaultValue="Jane Doe"
+                    label="First Name:"
+                    placeholder="Jane"
                     error = {this.state.nameerror}
                     fullWidth="true"
                     InputLabelProps={{
                         classes: {
                             root: classes.resize,
                         },
+                        shrink:true,
                     }}
-                    onChange={this.handleChange('name')}
-                />  
+                    onChange={this.handleChange('firstname')}
+                /> 
+
+                <TextField
+                    id="lastname"
+                    type="text"
+                    label="Last Name:"
+                    placeholder="Doe"
+                    error = {this.state.nameerror}
+                    fullWidth="true"
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.resize,
+                        },
+                        shrink:true,
+                    }}
+                    onChange={this.handleChange('lastname')}
+                />   
             
                 <TextField
                     id="date"
@@ -89,6 +106,7 @@ class NewAppointments extends Component{
                         classes: {
                             root: classes.resize,
                         },
+                        shrink:true,
                     }}
                     onChange={this.handleChange('date')}
                 />  
@@ -101,6 +119,7 @@ class NewAppointments extends Component{
                     fullWidth="true"
                     inputProps={{
                         step: 1800, // 30 min
+                        shrink:true,
                     }}
         
                     InputLabelProps={{
@@ -118,12 +137,13 @@ class NewAppointments extends Component{
                     id="date"
                     type="text"
                     label="Phone:"
-                    defaultValue="123-456-7890"
+                    placeholder="123-456-7890"
                     fullWidth="true"
                     InputLabelProps={{
                         classes: {
                             root: classes.resize,
                         },
+                        shrink:true,
                     }}
                     onChange={this.handleChange('phone')}
                 />  
