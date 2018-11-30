@@ -27,7 +27,8 @@ People who attended:
 
 | Item | Who | Notes |
 | ---- | ---- | ---- |
-| item | who | notes |
+| Tech Related Logistics | Everyone | - For surge email use email: peggy.stranges@clinicaesperanza.org with password: OSU@6646 <br> - Airtable request access for editting <br> |
+| Documentation | Everyone | - About page on the app <br> - Developer documentation needs explanation of updating environment variables <br> - User documentation in the repo| 
 
 
 ## Action Items
