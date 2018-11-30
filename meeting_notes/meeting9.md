@@ -19,8 +19,7 @@ People who attended:
 
 | Item | Description |
 |:----|:----|
-| Sprint 6 Issues | - User Testing Completion and Feedback editting <br> - Automated Messaging <br> - User authentification/Server rebuilding(Tech Transfer) <br> - Technology Transfer Document <br> - Either give us editting access or add an appointment table <br> - Walkthrough for getting API key|
-
+| Sprint 6 Issues | - User Testing Completion and Feedback editting <br> - Automated Messaging <br> - User authentification/Server rebuilding(Tech Transfer) <br> - Technology Transfer Document <br> - Either give us editting access or add an appointment table <br> - Walkthrough for getting API key <br>|
 
 
 ## Discussion Items
