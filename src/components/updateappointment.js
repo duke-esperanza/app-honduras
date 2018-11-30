@@ -127,11 +127,12 @@ class Update extends Component{
         var Airtable = require('airtable');
         var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
         var name = this.state.appointment.fields.first_name + ' ' + this.state.appointment.fields.last_name
+        console.log(this.state.appointment.id);
         base('appointments').replace(this.state.appointment.id, {
         "date": document.getElementById('date').value.toString(),
-        "status": document.getElementById('status'),
-        "first_name": this.state.appointment.fields.first_name.toString(),
-        "last_name": this.state.appointment.fields.last_name.toString(),
+        "status": parseInt(document.getElementById('status').value),
+        "first_name": this.state.appointment.fields.first_name,
+        "last_name": this.state.appointment.fields.last_name,
         "appointment_time": document.getElementById('appointment_time').value.toString(),
         "phone": document.getElementById('phone').value.toString()
         }, function(err, record) {
@@ -212,9 +213,10 @@ class Update extends Component{
                 maxWidth={'md'}
             >
                 <DialogContent>
-                        <Typography variant='h3' style={{textAlign:'center'}}>
-                        {this.state.appointment.fields.first_name} {this.state.appointment.fields.last_name}
+                        <Typography variant='h5'>
+                            {this.state.appointment.fields.first_name} {this.state.appointment.fields.last_name}
                         </Typography>
+                        
                         <Typography variant='h5'>
                             Date : <input type='date' id='date' defaultValue={this.state.appointment.fields.date} style={{borderBottom:'1px solid black', borderTop:'none', borderLeft:'none', borderRight:'none', outline:'none'}}></input>
                         </Typography>
