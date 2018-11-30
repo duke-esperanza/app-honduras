@@ -28,6 +28,8 @@ class TodayAppointment extends Component {
       id: this.props.id,
       valid: 0
     };
+
+    this.appointmentUpdate = this.appointmentUpdate.bind(this);
   }
 
   handleClick = () => {
@@ -36,10 +38,13 @@ class TodayAppointment extends Component {
 
   appointmentUpdate = (value, first, last) => {
     this.updateAirtable(value);
-    //call function here
-    this.setState = {
+    this.setState({
       valid: 1
-    };
+    });
+    //This value is 3 because that is the designated value for a patient MAKING their appointment
+    if(value === 3) this.props.onDel(first + " " + last + " has been marked as having came to their appointment!");
+    //This value is 4 because that is the designated value for a patient MISSING their appointment
+    if(value === 4) this.props.onDel(first + " " + last + " has been marked as missing their appointment!");
   };
 
   updateAirtable = value => {
@@ -47,38 +52,19 @@ class TodayAppointment extends Component {
     var base = new Airtable({ apiKey: "keybQixDhiGoMKCTi" }).base(
       "appuPqYIxCcvESuzm"
     );
-
+    console.log(value);
+    console.log("update call made it here");
     base("appointments").update(
       this.state.id,
       {
-        status: { value }
+        /* eslint-disable */
+        "status": value
       },
       function(err, record) {
         if (err) {
           console.error(err);
           return;
         }
-      }
-    );
-  };
-
-  patientFail = () => {
-    var Airtable = require("airtable");
-    var base = new Airtable({ apiKey: "keybQixDhiGoMKCTi" }).base(
-      "appuPqYIxCcvESuzm"
-    );
-
-    base("appointments").update(
-      this.state.id,
-      {
-        status: "4"
-      },
-      function(err, record) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        console.log(record.get("date"));
       }
     );
   };
@@ -128,11 +114,9 @@ class TodayAppointment extends Component {
           <Button
             variant="contained"
             color="primary"
-            onClick={this.appointmentUpdate(
-              3,
-              this.state.first,
-              this.state.last
-            )}
+            onClick={() =>
+              this.appointmentUpdate(3, this.state.first, this.state.last)
+            }
           >
             Came
             <CheckIcon className="leftIcon" />
@@ -140,11 +124,9 @@ class TodayAppointment extends Component {
           <Button
             variant="contained"
             color="secondary"
-            onClick={this.appointmentUpdate(
-              4,
-              this.state.first,
-              this.state.last
-            )}
+            onClick={() =>
+              this.appointmentUpdate(4, this.state.first, this.state.last)
+            }
           >
             Missed
             <CancelIcon className="leftIcon" />
