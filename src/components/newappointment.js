@@ -43,7 +43,7 @@ class NewAppointments extends Component{
     if(this.state.modify){
       this.snackbarOpen('You have submitted an appointment', true)
     }
-    else{
+    else {
       this.snackbarOpen('You must fill out the entire form', false);
     }
   }
