@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Button, Typography } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 const Airtable = require('airtable');
 
 const styles = {
@@ -14,7 +17,9 @@ const styles = {
 }
 
 class NewAppointments extends Component{
-    state = {
+  constructor(props){
+    super(props);
+    this.state = {
         firstname: '',
         lastname:'',
         date:'',
@@ -24,10 +29,40 @@ class NewAppointments extends Component{
         dateerror:false,
         timeerror:false,
         phoneerror:false,
+        snackbar: false,
+        message: '',
+        clear: false,
     }
-    
+    // this.snackbarOpen = this.snackbarOpen.bind(this);
+    // this.snackbarClose = this.snackbarClose.bind(this);
+  }
 
-    onClick = () => {
+  onClick = () => {
+    var res = this.modify();
+    if(res){
+      this.snackbarOpen('You have submitted an appointment', true)
+    }
+    else{
+      this.snackbarOpen('You must fill out the entire form', false);
+    }
+  }
+
+    snackbarOpen = (message, clear) => {
+      this.setState({
+        message: message,
+        snackbar: true,
+        clear: clear,
+      });
+    }
+
+    snackbarClose = () => {
+      this.setState({
+        snackbar: false,
+      });
+      if(this.state.clear) document.location.reload();
+    }
+
+    modify = () => {
     var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
     base('appointments').create({
         "date": this.state.date,
@@ -37,12 +72,20 @@ class NewAppointments extends Component{
         "appointment_time": this.state.appointment_time,
         "phone": this.state.phone
     }, function(err, record) {
-        if (err) { console.error(err);alert('You must fill out the entire form'); return; }
-        else{alert('You have submitted an appointment!')}
-        document.location.reload();
-        console.log(record);
+        if (err) {
+           //console.error(err);alert('You must fill out the entire form');
+           //this.snackbarOpen('You must fill out the entire form', false);
+           return false;
+         }
+        else {
+          //alert('You have submitted an appointment!')
+          //this.snackbarOpen('You have submitted an appointment', true)
+        }
+        return true;
+        //document.location.reload();
+        //console.log(record);
     });
-    
+
     }
 
     handleChange = name => event => {
@@ -52,7 +95,7 @@ class NewAppointments extends Component{
         console.log(event.target.value)
       };
 
-    
+
 
 
     render(){
@@ -60,7 +103,7 @@ class NewAppointments extends Component{
         return(
             <div style={{width:"20em"}}>
                 <Typography variant='h6' style={{padding:10}}>Create an Appointment</Typography>
-            
+
                 <TextField
                     id="firstname"
                     type="text"
@@ -75,7 +118,7 @@ class NewAppointments extends Component{
                         shrink:true,
                     }}
                     onChange={this.handleChange('firstname')}
-                /> 
+                />
 
                 <TextField
                     id="lastname"
@@ -91,8 +134,8 @@ class NewAppointments extends Component{
                         shrink:true,
                     }}
                     onChange={this.handleChange('lastname')}
-                />   
-            
+                />
+
                 <TextField
                     id="date"
                     type="date"
@@ -106,8 +149,8 @@ class NewAppointments extends Component{
                         shrink:true,
                     }}
                     onChange={this.handleChange('date')}
-                />  
-            
+                />
+
                 <TextField
                     id="time"
                     type="time"
@@ -118,18 +161,18 @@ class NewAppointments extends Component{
                         step: 1800, // 30 min
                         shrink:true,
                     }}
-        
+
                     InputLabelProps={{
                         classes: {
                             root: classes.resize,
                         },
                     }}
-                    
-                    onChange={this.handleChange('appointment_time')}
-                />  
-            
 
-            
+                    onChange={this.handleChange('appointment_time')}
+                />
+
+
+
                 <TextField
                     id="date"
                     type="text"
@@ -143,15 +186,37 @@ class NewAppointments extends Component{
                         shrink:true,
                     }}
                     onChange={this.handleChange('phone')}
-                />  
-                
-                
-            
+                />
+
+
+
             <Button onClick={this.onClick.bind(this)} style={{margin:5,float:'right'}}>
                 <Typography variant='h8'>
                     Create
                 </Typography>
             </Button>
+            <Snackbar
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right"
+              }}
+              open={this.state.snackbar}
+              onClose={this.snackbarClose}
+              ContentProps={{
+                'aria-describedby': 'message-id',
+              }}
+              message={this.state.message}
+              action={[
+                <IconButton
+                  key="close"
+                  aria-label="Close"
+                  color="inherit"
+                  onClick={this.handleClose}
+                >
+                  <CloseIcon />
+                </IconButton>,
+              ]}
+            />
             </div>
         );
     }
