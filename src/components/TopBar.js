@@ -20,9 +20,13 @@ function TopBar() {
             Schedule
           </NavLink> 
           <div style={{width:'1em'}}></div>
-          <NavLink to = '/update' style={{ textDecoration: 'none', color:'white', fontSize:'2em' }} activeStyle={{color:'limegreen'}}>
+          <NavLink to = '/update' style={{ textDecoration: 'none', color:'white', fontSize:'2em', borderRight:'2px solid gray',paddingRight:'.5em' }} activeStyle={{color:'limegreen'}}>
             Update
-          </NavLink>       
+          </NavLink>  
+          <div style={{width:'1em'}}></div>
+          <NavLink to = '/about' style={{ textDecoration: 'none', color:'white', fontSize:'2em' }} activeStyle={{color:'limegreen'}}>
+            About
+          </NavLink>     
         </Toolbar>
       </AppBar>
     </div>
