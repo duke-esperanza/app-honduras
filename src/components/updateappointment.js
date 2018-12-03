@@ -21,7 +21,7 @@ const stati = [
         label:'Sent 2 Week Notification'
     },
     {
-        vale:3,
+        value:3,
         label:'Sent 2 Day Notification'
     },
     {
@@ -104,11 +104,7 @@ class Update extends Component{
    
 
     appointmentClick(el){
-        this.setState({appointment:el})
-        var stat = this.state.appointment.fields.status;
-        this.setState({status:stat})
-        this.setState({open:true});
-        
+        this.setState({appointment:el,status:el.fields.status,open:true})        
     };
 
     deleteAppointment(){
@@ -137,6 +133,7 @@ class Update extends Component{
         "phone": document.getElementById('phone').value.toString()
         }, function(err, record) {
             if (err) { console.error(err); return; }
+            console.log(parseInt(document.getElementById('status').value));
             alert('Updated record for ' + name);
             document.location.reload();
         });
