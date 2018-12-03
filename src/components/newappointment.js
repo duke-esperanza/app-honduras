@@ -31,15 +31,16 @@ class NewAppointments extends Component{
         phoneerror:false,
         snackbar: false,
         message: '',
-        clear: false,
+        modify: false,
     }
     // this.snackbarOpen = this.snackbarOpen.bind(this);
     // this.snackbarClose = this.snackbarClose.bind(this);
+    //this.modify = this.modify.bind(this);
   }
 
   onClick = () => {
-    var res = this.modify();
-    if(res){
+    this.modify();
+    if(this.state.modify){
       this.snackbarOpen('You have submitted an appointment', true)
     }
     else{
@@ -51,7 +52,6 @@ class NewAppointments extends Component{
       this.setState({
         message: message,
         snackbar: true,
-        clear: clear,
       });
     }
 
@@ -59,10 +59,10 @@ class NewAppointments extends Component{
       this.setState({
         snackbar: false,
       });
-      if(this.state.clear) document.location.reload();
+      if(this.state.modify) document.location.reload();
     }
 
-    modify = () => {
+    modify(){
     var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
     base('appointments').create({
         "date": this.state.date,
@@ -73,20 +73,13 @@ class NewAppointments extends Component{
         "phone": this.state.phone
     }, function(err, record) {
         if (err) {
-           //console.error(err);alert('You must fill out the entire form');
-           //this.snackbarOpen('You must fill out the entire form', false);
-           return false;
+            this.setState({ modify: false });
          }
-        else {
-          //alert('You have submitted an appointment!')
-          //this.snackbarOpen('You have submitted an appointment', true)
-        }
-        return true;
-        //document.location.reload();
-        //console.log(record);
-    });
-
-    }
+         else{
+           this.setState({ modify: true });
+         }
+    }.bind(this));
+  };
 
     handleChange = name => event => {
         this.setState({
