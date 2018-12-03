@@ -156,10 +156,24 @@ class Update extends Component{
             {status:event.target.value}
         )
     }
+    handleFilter = () =>{
+        console.log(document.getElementById('filter_check').checked)
+        if(document.getElementById('filter_check').checked && document.getElementById('filter_date').value !==''){
+            var uapps = APPOINTMENTS.filter((el) => {
+                return el.fields.date === document.getElementById('filter_date').value
+            })
+            console.log(uapps)
+            console.log(document.getElementById('filter_date').value)
+            this.setState({uapps})
+        }
+        else{
+            this.setState({uapps:APPOINTMENTS});
+        }
+    }
 
     render(){
         const content = this.state.uapps.slice(0,20).map((el) => 
-            <div key={el.fields.ID} style={{margin:'2em', display:'inline-block'}}>
+            <div key={el.fields.ID} style={{margin:'2em', display:'inline-block',float:'left'}}>
             <Card style={{width:250, display:'inline-block'}}>
                 <CardContent>
                     <Typography variant='h4' style={{textAlign:'center'}}>
@@ -167,6 +181,9 @@ class Update extends Component{
                     </Typography>
                     <Typography variant='h5' style={{textAlign:'center'}}>
                         {'Date: ' + el.fields.date}
+                    </Typography>
+                    <Typography variant='h5' style={{textAlign:'center'}}>
+                        {'Time: ' + el.fields.appointment_time}
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -189,8 +206,25 @@ class Update extends Component{
                 </input>
                 <Button onClick={this.makeNewAppointment.bind(this)} variant='contained' color='primary'>New Appointment</Button>
             </div>
+            <div style={{paddingLeft:'2em',marginLeft:20,width:'100em',display:'inline-block'}}>
+                <Typography style={{ marginRight:5,float:'left'}}>Filter By Date: </Typography>
+                <input
+                type='date'
+                onChange={this.handleFilter.bind(this)}
+                id='filter_date'
+                style={{float:'left'}}
+                ></input>
+                <input
+                type='checkbox'
+                onChange={this.handleFilter.bind(this)}
+                style={{width:20,height:20,float:'left'}}
+                id='filter_check'>
+                </input>
+            </div>
             
             {content}
+            
+            
 
             {this.state.ready ? <Dialog
             open={this.state.ready}
