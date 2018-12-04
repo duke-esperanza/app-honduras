@@ -15,24 +15,24 @@ import CloseIcon from '@material-ui/icons/Close';
 var APPOINTMENTS = [];
 
 const stati = [
-{
-  value:1,
-  label:'New Appointment'
-},
-{
-  value:2,
-  label:'Sent 2 Week Notification'
-},
-{
-  vale:3,
-  label:'Sent 2 Day Notification'
-},
-{
-  value:4,
-  label:'Made Appointment'
-},
-{value:5,
-  label:'Missed Appointment'}
+    {
+        value:1,
+        label:'New Appointment'
+    },
+    {
+        value:2,
+        label:'Sent 2 Week Notification'
+    },
+    {
+        value:3,
+        label:'Sent 2 Day Notification'
+    },
+    {
+        value:4,
+        label:'Made Appointment'
+    },
+    {value:5,
+    label:'Missed Appointment'}
 ]
 
 class Update extends Component{
@@ -123,13 +123,9 @@ class Update extends Component{
     });
   };
 
-  appointmentClick(el){
-    this.setState({appointment:el})
-    var stat = this.state.appointment.fields.status;
-    this.setState({status:stat})
-    this.setState({open:true});
-
-  };
+    appointmentClick(el){
+        this.setState({appointment:el,status:el.fields.status,open:true})
+    };
 
   delete(){
     this.deleteAppointment();
@@ -168,52 +164,81 @@ class Update extends Component{
     });
   };
 
-  handleClose = () => {
-    this.setState({ open: false ,ready:false});
-  };
+    makeNewAppointment = () => {
+        console.log('making appointment')
+        this.setState({ready:true})
+    }
+    changeStatus = () => event =>{
+        console.log(event.target.value)
+        this.setState(
+            {status:event.target.value}
+        )
+    }
+    handleFilter = () =>{
+        console.log(document.getElementById('filter_check').checked)
+        if(document.getElementById('filter_check').checked && document.getElementById('filter_date').value !==''){
+            var uapps = APPOINTMENTS.filter((el) => {
+                return el.fields.date === document.getElementById('filter_date').value
+            })
+            console.log(uapps)
+            console.log(document.getElementById('filter_date').value)
+            this.setState({uapps})
+        }
+        else{
+            this.setState({uapps:APPOINTMENTS});
+        }
+    }
 
-  makeNewAppointment = () => {
-    console.log('making appointment')
-    this.setState({ready:true})
-  }
+    render(){
+        const content = this.state.uapps.slice(0,20).map((el) =>
+            <div key={el.fields.ID} style={{margin:'2em', display:'inline-block',float:'left'}}>
+            <Card style={{width:250, display:'inline-block'}}>
+                <CardContent>
+                    <Typography variant='h4' style={{textAlign:'center'}}>
+                        {el.fields.first_name +  ' ' + el.fields.last_name}
+                    </Typography>
+                    <Typography variant='h5' style={{textAlign:'center'}}>
+                        {'Date: ' + el.fields.date}
+                    </Typography>
+                    <Typography variant='h5' style={{textAlign:'center'}}>
+                        {'Time: ' + el.fields.appointment_time}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button size="medium" onClick={this.appointmentClick.bind(this,el)}>Update Appointment</Button>
+                </CardActions>
+            </Card>
+            </div>
+        )
 
-  changeStatus = () => event =>{
-    console.log(event.target.value)
-    this.setState(
-      {status:event.target.value}
-    )
-  }
 
-  render(){
-    const content = this.state.uapps.slice(0,20).map((el) =>
-    <div key={el.fields.ID} style={{margin:'2em', display:'inline-block'}}>
-      <Card style={{width:250, display:'inline-block'}}>
-        <CardContent>
-          <Typography variant='h4' style={{textAlign:'center'}}>
-            {el.fields.first_name +  ' ' + el.fields.last_name}
-          </Typography>
-          <Typography variant='h5' style={{textAlign:'center'}}>
-            {'Date: ' + el.fields.date}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="medium" onClick={this.appointmentClick.bind(this,el)}>Update Appointment</Button>
-        </CardActions>
-      </Card>
-    </div>
-  )
 
-  return(
-    <>
-      <div style={{display:'inline-block',width:'100%'}}>
-        <input
-          type='text'
-          style={{width:'75%',height:30,borderRadius:3,paddingLeft:20,borderWidth:1,borderStyle:"solid",fontSize:"1.5em",outline:'none',margin:'2em',marginBottom:0}}
-          onChange={this.searchHandler.bind(this)}
-          placeholder="Search for an appointment">
-        </input>
-        <Button onClick={this.makeNewAppointment.bind(this)} variant='contained' color='primary'>New Appointment</Button>
-      </div>
+        return(
+            <>
+            <div style={{display:'inline-block',width:'100%'}}>
+                <input
+                type='text'
+                style={{width:'75%',height:30,borderRadius:3,paddingLeft:20,borderWidth:1,borderStyle:"solid",fontSize:"1.5em",outline:'none',margin:'2em',marginBottom:0}}
+                onChange={this.searchHandler.bind(this)}
+                placeholder="Search for an appointment">
+                </input>
+                <Button onClick={this.makeNewAppointment.bind(this)} variant='contained' color='primary'>New Appointment</Button>
+            </div>
+            <div style={{paddingLeft:'2em',marginLeft:20,width:'100em',display:'inline-block'}}>
+                <Typography style={{ marginRight:5,float:'left'}}>Filter By Date: </Typography>
+                <input
+                type='date'
+                onChange={this.handleFilter.bind(this)}
+                id='filter_date'
+                style={{float:'left'}}
+                ></input>
+                <input
+                type='checkbox'
+                onChange={this.handleFilter.bind(this)}
+                style={{width:20,height:20,float:'left'}}
+                id='filter_check'>
+                </input>
+            </div>
       {content}
       {this.state.ready ? <Dialog
           open={this.state.ready}
