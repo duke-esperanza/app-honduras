@@ -13,6 +13,9 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import PhoneIcon from "@material-ui/icons/Phone";
 import CheckIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import NewAppointments from './newappointment';
 import "../styles/todayappt.css";
 
 class TodayAppointment extends Component {
@@ -26,7 +29,8 @@ class TodayAppointment extends Component {
       time: this.props.time,
       phone: this.props.phone,
       id: this.props.id,
-      valid: 0
+      valid: 0,
+      newAppt: false,
     };
 
     this.appointmentUpdate = this.appointmentUpdate.bind(this);
@@ -35,6 +39,10 @@ class TodayAppointment extends Component {
   handleClick = () => {
     this.setState(state => ({ open: !state.open }));
   };
+
+  handleClose = () => {
+    this.setState({ newAppt: false });
+  }
 
   appointmentUpdate = (value, first, last) => {
     this.updateAirtable(value);
@@ -75,6 +83,7 @@ class TodayAppointment extends Component {
     }
 
     return (
+      <div>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Avatar>
@@ -131,8 +140,29 @@ class TodayAppointment extends Component {
             Missed
             <CancelIcon className="leftIcon" />
           </Button>
+          <Button
+            variant="contained"
+            onClick={() =>
+              this.setState({ newAppt: true})
+            }
+          >
+            Create Appointment
+          </Button>
         </ExpansionPanelActions>
       </ExpansionPanel>
+      {this.state.newAppt ? <Dialog
+          open={this.state.newAppt}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          maxWidth={'md'}
+        >
+          <DialogContent>
+            <NewAppointments/>
+          </DialogContent>
+        </Dialog> :''
+      }
+      </div>
     );
   }
 }
