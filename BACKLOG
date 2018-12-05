@@ -1,0 +1,12 @@
+
+1. Make the app usable at other clinics 
+	-Add User Authentication
+	-Add documentation for how to create a Airtable and format it to match our app 
+
+2. Revamp UI and make it more captivating
+	-Change Font
+  
+3. Make a more intuitive UX
+	-Change 'Schedule', 'Update', and 'About' to look more like buttons 
+
+4. Add option to change from Spanish to English or vice versa (support multiple languages)
