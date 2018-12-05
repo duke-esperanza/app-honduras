@@ -308,6 +308,7 @@ class Update extends Component{
           }}
           open={this.state.snackbar}
           onClose={this.snackbarClose}
+          autoHideDuration={2000}
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
