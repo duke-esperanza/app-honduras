@@ -164,6 +164,10 @@ class Update extends Component{
     });
   };
 
+  handleClose = () => {
+    this.setState({ open: false, ready: false });
+  }
+
     makeNewAppointment = () => {
         console.log('making appointment')
         this.setState({ready:true})
@@ -192,7 +196,7 @@ class Update extends Component{
     render(){
         const content = this.state.uapps.slice(0,20).map((el) =>
             <div key={el.fields.ID} style={{margin:'2em', display:'inline-block',float:'left'}}>
-            <Card style={{width:250, display:'inline-block'}}>
+            <Card style={{width:250, display:'inline-block', height:250}}>
                 <CardContent>
                     <Typography variant='h4' style={{textAlign:'center'}}>
                         {el.fields.first_name +  ' ' + el.fields.last_name}
@@ -313,7 +317,7 @@ class Update extends Component{
               key="close"
               aria-label="Close"
               color="inherit"
-              onClick={this.handleClose}
+              onClick={this.snackbarClose}
             >
               <CloseIcon />
             </IconButton>,

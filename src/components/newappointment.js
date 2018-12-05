@@ -31,27 +31,18 @@ class NewAppointments extends Component{
         phoneerror:false,
         snackbar: false,
         message: '',
-        modify: false,
+        disable: false,
     }
     // this.snackbarOpen = this.snackbarOpen.bind(this);
     // this.snackbarClose = this.snackbarClose.bind(this);
     //this.modify = this.modify.bind(this);
   }
 
-  onClick = () => {
-    this.modify();
-    if(this.state.modify){
-      this.snackbarOpen('You have submitted an appointment', true)
-    }
-    else {
-      this.snackbarOpen('You must fill out the entire form', false);
-    }
-  }
-
     snackbarOpen = (message, clear) => {
       this.setState({
         message: message,
         snackbar: true,
+        disable: true,
       });
     }
 
@@ -59,10 +50,10 @@ class NewAppointments extends Component{
       this.setState({
         snackbar: false,
       });
-      if(this.state.modify) document.location.reload();
+      document.location.reload();
     }
 
-    modify(){
+    onClick = () => {
     var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
     base('appointments').create({
         "date": this.state.date,
@@ -73,10 +64,10 @@ class NewAppointments extends Component{
         "phone": this.state.phone
     }, function(err, record) {
         if (err) {
-            this.setState({ modify: false });
+            this.snackbarOpen('You must fill out the entire form', false);
          }
          else{
-           this.setState({ modify: true });
+           this.snackbarOpen('You have submitted an appointment', true);
          }
     }.bind(this));
   };
@@ -183,7 +174,7 @@ class NewAppointments extends Component{
 
 
 
-            <Button onClick={this.onClick.bind(this)} style={{margin:5,float:'right'}}>
+            <Button onClick={this.onClick.bind(this)} style={{margin:5,float:'right'}} disable={this.state.disable}>
                 <Typography variant='h8'>
                     Create
                 </Typography>
@@ -194,6 +185,7 @@ class NewAppointments extends Component{
                 horizontal: "right"
               }}
               open={this.state.snackbar}
+              autoHideDuration={5000}
               onClose={this.snackbarClose}
               ContentProps={{
                 'aria-describedby': 'message-id',
@@ -204,7 +196,7 @@ class NewAppointments extends Component{
                   key="close"
                   aria-label="Close"
                   color="inherit"
-                  onClick={this.handleClose}
+                  onClick={this.snackbarClose}
                 >
                   <CloseIcon />
                 </IconButton>,
