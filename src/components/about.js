@@ -16,6 +16,7 @@ const styles={
 }
 
 function About(props){
+    //This page is the about page. It was chosen to be a function because of its static nature.
     const {classes} = props;
     return(
         <div className={classes.div}>

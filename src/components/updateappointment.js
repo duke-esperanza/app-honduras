@@ -68,21 +68,17 @@ class Update extends Component{
   }
 
   componentWillMount(){
+    //Before the component is mounted, we need to grab the appointment data from the airtable.
+    //This data is assigned to the Global APPOINTMENTS variable for use in the search
     var ls = [];
     var Airtable = require('airtable');
     var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
 
     base('Appointments').select({
-      //add conditions here
     }).eachPage(function page(records, fetchNextPage) {
-      // This function (`page`) will get called for each page of records.
       records.forEach(function(record) {
         ls.push(record);
       });
-
-      // To fetch the next page of records, call `fetchNextPage`.
-      // If there are more records, `page` will get called again.
-      // If there are no more records, `done` will get called.
       fetchNextPage();
 
     }, function done(err) {
@@ -112,6 +108,7 @@ class Update extends Component{
   };
 
   searchHandler (event) {
+    //This searches for a match between the text in the input and the full name for each appointment in the database
     let searcjQery = event.target.value.toLowerCase().replace( /\s/g, '')
     var newapps = APPOINTMENTS.filter((el) => {
       let searchValue = el.fields.first_name.toLowerCase() + el.fields.last_name.toLowerCase();
@@ -124,16 +121,19 @@ class Update extends Component{
   };
 
     appointmentClick(el){
+      //an appointment was clicked. the modal must be opened
         this.setState({appointment:el,status:el.fields.status,open:true})
     };
 
   delete(){
+    //deletes appointment and notifies user
     this.deleteAppointment();
     var name = this.state.appointment.fields.first_name + ' ' + this.state.appointment.fields.last_name;
     this.snackbarOpen('Deleted record for ' + name);
   }
 
   deleteAppointment(){
+    //deletes appointment through airtable
     console.log('delete clicked')
     var Airtable = require('airtable');
     var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
@@ -143,12 +143,14 @@ class Update extends Component{
   };
 
   update(){
+    //updates appointment and notifies user
     this.updateAppointment();
     var name = this.state.appointment.fields.first_name + ' ' + this.state.appointment.fields.last_name
     this.snackbarOpen('Updated record for ' + name);
   }
 
   updateAppointment(){
+    //updates appointment by grabbing the values in each of the update appoinment dialogue input fields
     var Airtable = require('airtable');
     var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
     console.log(this.state.appointment.id);
@@ -165,20 +167,24 @@ class Update extends Component{
   };
 
   handleClose = () => {
+    //handles close for both dialogues
     this.setState({ open: false, ready: false });
   }
 
     makeNewAppointment = () => {
+      //opens the dialogue to make a new appointment
         console.log('making appointment')
         this.setState({ready:true})
     }
     changeStatus = () => event =>{
+      //changes the status of the appointment
         console.log(event.target.value)
         this.setState(
             {status:event.target.value}
         )
     }
     handleFilter = () =>{
+      //filters appointments by date if there is a date and the filter is checked
         console.log(document.getElementById('filter_check').checked)
         if(document.getElementById('filter_check').checked && document.getElementById('filter_date').value !==''){
             var uapps = APPOINTMENTS.filter((el) => {

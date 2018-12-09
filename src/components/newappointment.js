@@ -33,9 +33,6 @@ class NewAppointments extends Component{
         message: '',
         disable: false,
     }
-    // this.snackbarOpen = this.snackbarOpen.bind(this);
-    // this.snackbarClose = this.snackbarClose.bind(this);
-    //this.modify = this.modify.bind(this);
   }
 
     snackbarOpen = (message, clear) => {
@@ -54,6 +51,7 @@ class NewAppointments extends Component{
     }
 
     onClick = () => {
+        //The submit button was clicked. This function pushes the newly created appointment into the airtable
     var base = new Airtable({apiKey: process.env.REACT_APP_AIRTABLE_KEY}).base(process.env.REACT_APP_AIRTABLE_BASE);
     base('appointments').create({
         "date": this.state.date,
@@ -73,6 +71,7 @@ class NewAppointments extends Component{
   };
 
     handleChange = name => event => {
+        //A change was made in the form. We need to keep the state of the form.
         this.setState({
           [name]: event.target.value,
         });

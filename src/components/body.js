@@ -6,6 +6,7 @@ import About from './about';
 
 
 const Body = () => (
+  //used to contain the body portion of the application. Utilizes react router to change the page content
     <main>
       <Switch>
         <Route exact path='/' component={container}/>
