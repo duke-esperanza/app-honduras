@@ -8,6 +8,7 @@ import '../styles/topbar.css';
 
 
 function TopBar() {
+  //Used a function because state is static. Utilizes Navlink to chage url
   return (
     <div className='root'>
       <AppBar position="static">
