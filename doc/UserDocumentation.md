@@ -8,7 +8,7 @@ This document is for understanding how the application works
 
  The Today tab displays the appointments that are for today. When you click on an appointment, you are given the ability to look at the patient name, appointment time, patient phone number, and two buttons to decide whether or not the patient was at the appointment. 
 
- ![Alt text](../img/today_appointment.PNG?raw=true "Title")
+ ![Alt text](../img/today_appointment.png?raw=true "Title")
 
  The Future tab shows all the appointments coming up in the near future. There is currently no search functionality in the Future appointment tab.
 
