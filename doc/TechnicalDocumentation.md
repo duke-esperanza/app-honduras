@@ -14,6 +14,7 @@
 [package.json](#package.json)<br>
 [README.md](../README.md)<br>
 [.env](#.env)<br>
+[Developing Directions](#Developing%20Directions)<br>
 
 ## doc
 The doc folder holds the majority of the documentation for this repository. the different documentations are based on who needs access to different spects of the project. If you are a user (nurse or doctor at Clinica Esperanza), you should refer to the UserDocumentation. If you are an IT personel who is tasked with updating the hosting of the website, changing the password protection, and other issue, you should refer to AppMaintenanceDocumentation. If you are another programmer who plans to continue with this project, for knowledge of the current design of the project, refer to this documentation. For knowledge of items in our groups backlog, refer to BACKLOG.
@@ -70,3 +71,22 @@ The components are as follows:
     This document contains all of the dependencies for application. These can easily be installed into the local environment by calling npm install. (Node.js must be installed first)
 ## .env
     This document is very important for the local environment, but is not included in the repository. for coding on the local environment, it is necessary for you to add the variables with the alias REACT_APP_vARIABLENAME mentioned in the AppMaintenanceDocumentation.
+
+
+## Developing Directions
+1. Open the text files in your favaorite text editing software (Atom).
+2. Open the bash terminal
+3. Navigate to the desired file location
+4. Run npm run dev
+5. in another terminal window, Run npm start
+6. Open up local host on your web browser, and watch the changes occur by refreshing.
+
+### If you get a permission error:
+1. $ npm cache clean --force
+2. $ rm -rf node_modules
+3. $ npm install
+4. $ npm start
+
+### Testing
+To do testing go to your CLI and run: npm test, while in the file location.  
+All the test are files under filename.test.js in the test folder.
