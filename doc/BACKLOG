@@ -1,4 +1,3 @@
-
 1. Make the app usable at other clinics 
 	-Add User Authentication
 	-Add documentation for how to create a Airtable and format it to match our app 
@@ -10,3 +9,7 @@
 	-Change 'Schedule', 'Update', and 'About' to look more like buttons 
 
 4. Add option to change from Spanish to English or vice versa (support multiple languages)
+
+5. Add more functionality to the Future appointments and missed appointments tab.
+    - Make appointments clickable in these tabs
+    - Display more information in these tabs like patient phone number
